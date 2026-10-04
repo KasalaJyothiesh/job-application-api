@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JobDesk · Job Application API</title>
+<style>
+:root{--bg:#f4f6fb;--white:#fff;--ink:#17233b;--muted:#71809a;--line:#e3e9f2;--blue:#315efb;--green:#159957;--purple:#7545e8;--orange:#e87919;--red:#dc3f4b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif;color:var(--ink)}button,input,textarea{font:inherit}button{border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer}button:hover{filter:brightness(.96)}input,textarea{width:100%;min-width:0;border:1px solid #dce3ee;border-radius:9px;background:#fff;padding:11px 12px;color:var(--ink);outline:none}input:focus,textarea:focus{border-color:#86a4ff;box-shadow:0 0 0 3px #e7edff}textarea{min-height:130px;resize:vertical;font:12px/1.6 ui-monospace,Consolas,monospace}.top{background:#fff;border-bottom:1px solid var(--line);padding:16px clamp(16px,3vw,36px);display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:#172b4d;color:#fff;font-size:23px}.brand h1{font-size:20px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}.topright{display:flex;align-items:center;gap:12px}.api-url{color:#64748b;font-size:12px}.live{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:20px;background:#e9f8f0;color:#137849;font-size:12px;font-weight:700}.dot{width:7px;height:7px;border-radius:50%;background:#20b66b}.wrap{max-width:1500px;margin:auto;padding:24px clamp(14px,2.5vw,34px) 40px}.intro{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}.intro h2{font-size:25px;margin:0 0 5px}.intro p{margin:0;color:var(--muted)}.base{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 12px}.status{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid #c5efd7;border-radius:12px;background:#f0fcf5;margin-bottom:18px}.status-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#d8f7e5;font-size:18px}.status strong{display:block;color:#117344;font-size:14px}.status span{display:block;color:#648172;font-size:12px;margin-top:2px}.section{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 8px 28px #1a2a4b08;min-width:0}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.titlegroup{display:flex;align-items:center;gap:11px}.icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:18px;font-weight:750;flex-shrink:0}.i-blue{background:#edf2ff;color:var(--blue)}.i-green{background:#e9f8f0;color:var(--green)}.i-purple{background:#f2edff;color:var(--purple)}.i-orange{background:#fff2e5;color:var(--orange)}.i-red{background:#fff0f1;color:var(--red)}h3{font-size:14px;margin:0;font-weight:750}.endpoint{font-size:11px;color:#8390a6;margin-top:4px}.primary{background:var(--blue);color:white}.success{background:var(--green);color:white}.purple{background:var(--purple);color:white}.orange{background:var(--orange);color:white}.danger{background:var(--red);color:white}.subtle{background:#eef2f8;color:#334155}.jobs{margin-bottom:16px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:12px}th{text-align:left;padding:11px 13px;background:#f7f9fc;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:.4px}td{padding:11px 13px;border-top:1px solid var(--line)}tbody tr:hover{background:#fafcff}.jobname{font-weight:650;color:#23345a}.actions{display:flex;gap:5px}.mini{padding:6px 8px;border-radius:7px;color:white;font-size:11px}.mini.view,.mini.edit{background:#4776f6}.mini.del{background:#e64c57}.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:14px}.section form{margin:0}.fieldrow{display:flex;gap:8px;align-items:center}.fieldrow button{white-space:nowrap}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.full{width:100%;margin-top:9px}.result{margin-top:11px;padding:11px 12px;min-height:42px;border:1px solid #edf0f5;background:#f8fafc;border-radius:9px;color:#8290a5;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.result.ok{color:#176b43;background:#f0fbf5;border-color:#ccefd9}.result.err{color:#b52f3b;background:#fff4f4;border-color:#ffd3d6}.lower{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}.updategrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.small{font-size:11px;color:var(--muted);margin-top:9px}.hidden{display:none!important}.toast{position:fixed;right:20px;bottom:20px;background:#172033;color:#fff;padding:13px 16px;border-radius:10px;box-shadow:0 10px 35px #15213a30;max-width:360px;z-index:10}.nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}.nav a{text-decoration:none;color:#52627b;padding:8px 11px;border-radius:8px;font-size:12px;font-weight:650}.nav a:hover{background:#fff;color:var(--blue)}.foot{margin:17px 2px 0;font-size:11px;color:#8994a6;line-height:1.6}
+@media(max-width:1050px){.tools{grid-template-columns:repeat(2,minmax(0,1fr))}.lower{grid-template-columns:1fr}.api-url{display:none}}@media(max-width:650px){.top{padding:13px 14px}.brand h1{font-size:17px}.brand p{font-size:11px}.wrap{padding:16px 12px 28px}.intro{align-items:start;flex-direction:column}.intro h2{font-size:22px}.tools{grid-template-columns:1fr}.section{padding:14px}.fieldrow{flex-wrap:wrap}.fieldrow input{flex:1 1 130px}.updategrid{grid-template-columns:repeat(2,minmax(0,1fr))}.nav{gap:3px}.nav a{padding:7px 8px}.status{align-items:flex-start}}@media(max-width:400px){.formgrid,.updategrid{grid-template-columns:1fr}.section-head{flex-direction:column}.section-head>button{width:100%}.topright .live{font-size:0;padding:10px}.topright .live .dot{width:9px;height:9px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><div class="logo">▣</div><div><h1>JobDesk</h1><p>Job Application · Spring Boot API</p></div></div><div class="topright"><div class="api-url">API&nbsp; <strong>http://localhost:8080</strong></div><div class="live"><span class="dot"></span><span id="liveText">Checking backend</span></div></div></header>
+<main class="wrap">
+<div class="intro"><div><h2>Job management</h2><p>Manage your job records from one clean workspace.</p></div><div class="base">Connected API: <strong>localhost:8080</strong></div></div>
+<div class="status"><div class="status-icon">✓</div><div><strong id="statusTitle">Checking your backend…</strong><span id="statusMessage">Connecting to your Spring Boot application.</span></div></div>
+<nav class="nav"><a href="#all-jobs">All jobs</a><a href="#by-id">Find by ID</a><a href="#by-name">Find by name</a><a href="#by-keyword">Keyword</a><a href="#by-salary">Salary range</a><a href="#add-job">Add job</a><a href="#add-jobs">Bulk add</a><a href="#update-job">Update</a><a href="#delete-job">Delete</a></nav>
+<section id="all-jobs" class="section jobs"><div class="section-head"><div class="titlegroup"><div class="icon i-blue">▤</div><div><h3>All jobs</h3><div class="endpoint">GET /getjobs</div></div></div><button class="primary" onclick="loadJobs()">↻ &nbsp;Refresh jobs</button></div><div class="table-wrap"><table><thead><tr><th>ID</th><th>Job name</th><th>Experience</th><th>Salary (₹)</th><th>Location</th><th>Actions</th></tr></thead><tbody id="jobsBody"><tr><td colspan="6" style="color:#8390a6">Select “Refresh jobs” to load records from your backend.</td></tr></tbody></table></div><p class="small">Tip: edit loads a record into the update form. Delete asks for confirmation.</p></section>
+<div class="tools">
+<section id="by-id" class="section"><div class="section-head"><div class="titlegroup"><div class="icon i-blue">⌕</div><div><h3>Find job by ID</h3><div class="endpoint">GET /getjobs/id/{jobId}</div></div></div></div><form onsubmit="getById(event)"><div class="fieldrow"><input id="searchId" type="number" min="1" placeholder="Enter job ID" required><button class="primary">Find</button></div></form><div id="idResult" class="result">Job details will appear here.</div></section>
+<section id="by-name" class="section"><div class="section-head"><div class="titlegroup"><div class="icon i-purple">⌕</div><div><h3>Find by name</h3><div class="endpoint">GET /getjobs/name/{jobName}</div></div></div></div><form onsubmit="getByName(event)"><div class="fieldrow"><input id="searchName" placeholder="e.g. Java Developer" required><button class="primary">Search</button></div></form><div id="nameResult" class="result">Matching jobs will appear here.</div></section>
+<section id="by-keyword" class="section"><div class="section-head"><div class="titlegroup"><div class="icon i-blue">⌕</div><div><h3>Find by keyword</h3><div class="endpoint">GET /getjobs/keyword/{keyword}</div></div></div></div><form onsubmit="getByKeyword(event)"><div class="fieldrow"><input id="searchKeyword" placeholder="e.g. Developer" required><button class="primary">Search</button></div></form><div id="keywordResult" class="result">Matching jobs will appear here.</div></section>
+<section id="by-salary" class="section"><div class="section-head"><div class="titlegroup"><div class="icon i-green">₹</div><div><h3>Salary range</h3><div class="endpoint">GET /getjobs-by-jobpay/{min}/{max}</div></div></div></div><form onsubmit="getBySalary(event)"><div class="formgrid"><input id="minSalary" type="number" min="0" placeholder="Minimum salary" required><input id="maxSalary" type="number" min="0" placeholder="Maximum salary" required></div><button class="primary full">Search range</button></form><div id="salaryResult" class="result">Matching jobs will appear here.</div></section>
+<section id="add-job" class="section"><div class="section-head"><div class="titlegroup"><div class="icon i-green">＋</div><div><h3>Add a job</h3><div class="endpoint">POST /addjob</div></div></div></div><form onsubmit="addJob(event)"><div class="formgrid"><input id="newId" type="number" min="1" placeholder="Job ID" required><input id="newName" placeholder="Job name" required><input id="newExp" type="number" min="0" placeholder="Experience (years)" required><input id="newPay" type="number" min="0" placeholder="Salary (₹)" required><input id="newLoc" style="grid-column:1/-1" placeholder="Location" required></div><button class="success full">Add job</button></form><div id="addResult" class="result hidden"></div><p class="small">Job ID is sent because the current model appears to require an integer. If the ID is auto-generated, remove this field.</p></section>
+<section id="add-jobs" class="section"><div class="section-head"><div class="titlegroup"><div class="icon i-purple">▱</div><div><h3>Bulk add jobs</h3><div class="endpoint">POST /addjobs · JSON array</div></div></div></div><form onsubmit="addJobs(event)"><textarea id="bulkJson" spellcheck="false">[
+  {
+    "jobId": 101,
+    "jobName": "Java Developer",
+    "jobExp": 2,
+    "jobPay": 600000,
+    "jobLoc": "Bangalore"
+  }
+]</textarea><button class="purple full">Add all jobs</button></form><div id="bulkResult" class="result hidden"></div></section>
+</div>
+<div class="lower">
+<section id="update-job" class="section"><div class="section-head"><div class="titlegroup"><div class="icon i-orange">✎</div><div><h3>Update a job</h3><div class="endpoint">PUT /update-job</div></div></div><button class="subtle" type="button" onclick="loadUpdateById()">Load ID</button></div><form onsubmit="updateJob(event)"><div class="updategrid"><input id="updateId" type="number" min="1" placeholder="Job ID" required><input id="updateName" placeholder="Job name" required><input id="updateExp" type="number" min="0" placeholder="Experience" required><input id="updatePay" type="number" min="0" placeholder="Salary (₹)" required><input id="updateLoc" placeholder="Location" required><button class="orange">Save changes</button></div></form><div id="updateResult" class="result hidden"></div><p class="small">Enter an ID and choose “Load ID”, then edit and save.</p></section>
+<section id="delete-job" class="section"><div class="section-head"><div class="titlegroup"><div class="icon i-red">⌫</div><div><h3>Delete a job</h3><div class="endpoint">DELETE /delete-job/{jobId}</div></div></div></div><form onsubmit="deleteJob(event)"><div class="fieldrow"><input id="deleteId" type="number" min="1" placeholder="Enter job ID" required><button class="danger">Delete job</button></div></form><div id="deleteResult" class="result hidden"></div></section>
+</div>
+<p class="foot">Single HTML file · No frameworks. If browser blocks requests from a <code>file://</code> page, configure CORS or serve this file locally. API base URL: <code>http://localhost:8080</code>.</p>
+</main><div id="toast" class="toast hidden"></div>
+<script>
+"use strict";
+const API = "http://localhost:8080";
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toast(message) {
+  const el = $("toast");
+  el.textContent = message;
+  el.classList.remove("hidden");
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => el.classList.add("hidden"), 3500);
+}
+function setResult(id, message, type = "") {
+  const el = $(id);
+  el.textContent = message;
+  el.className = "result" + (type ? " " + type : "");
+}
+function showResult(id, message, type = "") {
+  setResult(id, message, type);
+  $(id).classList.remove("hidden");
+}
+async function api(path, options = {}) {
+  let response;
+  try {
+    response = await fetch(API + path, {
+      ...options,
+      headers: { "Content-Type": "application/json", ...(options.headers || {}) }
+    });
+  } catch (error) {
+    throw new Error("Could not connect to " + API + ". Check that Spring Boot is running and CORS is enabled.");
+  }
+  const raw = await response.text();
+  let data = raw;
+  try { data = raw ? JSON.parse(raw) : null; } catch (error) {}
+  if (!response.ok) {
+    throw new Error((data && typeof data === "object" && (data.message || data.error)) || ("HTTP " + response.status + " " + response.statusText));
+  }
+  return data;
+}
+function renderJobs(jobs) {
+  if (!Array.isArray(jobs)) jobs = jobs == null ? [] : [jobs];
+  if (!jobs.length) {
+    $("jobsBody").innerHTML = '<tr><td colspan="6" style="color:#8390a6">No jobs found.</td></tr>';
+    return;
+  }
+  $("jobsBody").innerHTML = jobs.map(job => `
+    <tr>
+      <td>${esc(job.jobId)}</td><td class="jobname">${esc(job.jobName)}</td>
+      <td>${esc(job.jobExp)}</td><td>${Number(job.jobPay ?? 0).toLocaleString("en-IN")}</td>
+      <td>${esc(job.jobLoc)}</td>
+      <td><div class="actions">
+        <button class="mini view" onclick="viewJob(${Number(job.jobId)})">View</button>
+        <button class="mini edit" onclick="fillUpdate(${Number(job.jobId)})">Edit</button>
+        <button class="mini del" onclick="deleteFromTable(${Number(job.jobId)})">Delete</button>
+      </div></td>
+    </tr>`).join("");
+}
+async function loadJobs() {
+  try {
+    const data = await api("/getjobs");
+    renderJobs(data);
+    toast("Jobs loaded successfully.");
+  } catch (error) {
+    $("jobsBody").innerHTML = `<tr><td colspan="6">${esc(error.message)}</td></tr>`;
+    toast(error.message);
+  }
+}
+async function checkBackend() {
+  try {
+    const data = await api("/");
+    $("liveText").textContent = "Backend online";
+    $("statusTitle").textContent = "Backend is running";
+    $("statusMessage").textContent = typeof data === "string" ? data : "Job Application Backend is Running Successfully";
+  } catch (error) {
+    $("liveText").textContent = "Connection issue";
+    $("statusTitle").textContent = "Could not confirm backend connection";
+    $("statusMessage").textContent = error.message;
+  }
+}
+async function getById(event) {
+  event.preventDefault();
+  try {
+    const data = await api("/getjobs/id/" + encodeURIComponent($("searchId").value));
+    setResult("idResult", data == null ? "No job found." : JSON.stringify(data, null, 2), data == null ? "err" : "ok");
+  } catch (error) { setResult("idResult", error.message, "err"); }
+}
+async function getByName(event) {
+  event.preventDefault();
+  try { setResult("nameResult", JSON.stringify((await api("/getjobs/name/" + encodeURIComponent($("searchName").value.trim()))) ?? [], null, 2), "ok"); }
+  catch (error) { setResult("nameResult", error.message, "err"); }
+}
+async function getByKeyword(event) {
+  event.preventDefault();
+  try { setResult("keywordResult", JSON.stringify((await api("/getjobs/keyword/" + encodeURIComponent($("searchKeyword").value.trim()))) ?? [], null, 2), "ok"); }
+  catch (error) { setResult("keywordResult", error.message, "err"); }
+}
+async function getBySalary(event) {
+  event.preventDefault();
+  const min = Number($("minSalary").value), max = Number($("maxSalary").value);
+  if (min > max) { setResult("salaryResult", "Minimum salary cannot exceed maximum salary.", "err"); return; }
+  try { setResult("salaryResult", JSON.stringify((await api("/getjobs-by-jobpay/" + min + "/" + max)) ?? [], null, 2), "ok"); }
+  catch (error) { setResult("salaryResult", error.message, "err"); }
+}
+function newJobPayload() {
+  return {
+    jobId: Number($("newId").value),
+    jobName: $("newName").value.trim(),
+    jobExp: Number($("newExp").value),
+    jobPay: Number($("newPay").value),
+    jobLoc: $("newLoc").value.trim()
+  };
+}
+async function addJob(event) {
+  event.preventDefault();
+  try {
+    await api("/addjob", { method: "POST", body: JSON.stringify(newJobPayload()) });
+    showResult("addResult", "Job request completed successfully.", "ok");
+    toast("Add job request sent.");
+    event.target.reset();
+    await loadJobs();
+  } catch (error) { showResult("addResult", error.message, "err"); }
+}
+async function addJobs(event) {
+  event.preventDefault();
+  let jobs;
+  try {
+    jobs = JSON.parse($("bulkJson").value);
+    if (!Array.isArray(jobs) || !jobs.length) throw new Error("Enter a non-empty JSON array.");
+    jobs.forEach((job, index) => {
+      for (const key of ["jobId", "jobName", "jobExp", "jobPay", "jobLoc"]) {
+        if (job[key] == null) throw new Error("Job at array index " + index + " is missing " + key + ".");
+      }
+    });
+  } catch (error) { showResult("bulkResult", "Invalid input: " + error.message, "err"); return; }
+  try {
+    await api("/addjobs", { method: "POST", body: JSON.stringify(jobs) });
+    showResult("bulkResult", "Bulk request completed (" + jobs.length + " job(s)).", "ok");
+    toast("Bulk add request sent.");
+    await loadJobs();
+  } catch (error) { showResult("bulkResult", error.message, "err"); }
+}
+function updatePayload() {
+  return {
+    jobId: Number($("updateId").value),
+    jobName: $("updateName").value.trim(),
+    jobExp: Number($("updateExp").value),
+    jobPay: Number($("updatePay").value),
+    jobLoc: $("updateLoc").value.trim()
+  };
+}
+async function updateJob(event) {
+  event.preventDefault();
+  try {
+    await api("/update-job", { method: "PUT", body: JSON.stringify(updatePayload()) });
+    showResult("updateResult", "Update request completed. Refresh the table to verify.", "ok");
+    toast("Update request sent.");
+    await loadJobs();
+  } catch (error) { showResult("updateResult", error.message, "err"); }
+}
+async function loadUpdateById() {
+  const id = $("updateId").value;
+  if (!id) { toast("Enter a Job ID first."); return; }
+  try {
+    const job = await api("/getjobs/id/" + encodeURIComponent(id));
+    if (!job) { showResult("updateResult", "No job found for that ID.", "err"); return; }
+    $("updateName").value = job.jobName ?? "";
+    $("updateExp").value = job.jobExp ?? "";
+    $("updatePay").value = job.jobPay ?? "";
+    $("updateLoc").value = job.jobLoc ?? "";
+    toast("Job loaded. Review the fields and save.");
+  } catch (error) { showResult("updateResult", error.message, "err"); }
+}
+async function fillUpdate(id) {
+  $("updateId").value = id;
+  $("update-job").scrollIntoView({ behavior: "smooth", block: "center" });
+  await loadUpdateById();
+}
+async function viewJob(id) {
+  $("searchId").value = id;
+  $("by-id").scrollIntoView({ behavior: "smooth", block: "center" });
+  const fakeEvent = { preventDefault() {} };
+  await getById(fakeEvent);
+}
+async function deleteJob(event) {
+  event.preventDefault();
+  const id = $("deleteId").value;
+  if (!confirm("Delete job ID " + id + "? This cannot be undone.")) return;
+  try {
+    await api("/delete-job/" + encodeURIComponent(id), { method: "DELETE" });
+    showResult("deleteResult", "Delete request completed for job ID " + id + ".", "ok");
+    toast("Delete request sent.");
+    event.target.reset();
+    await loadJobs();
+  } catch (error) { showResult("deleteResult", error.message, "err"); }
+}
+async function deleteFromTable(id) {
+  if (!confirm("Delete job ID " + id + "? This cannot be undone.")) return;
+  try { await api("/delete-job/" + id, { method: "DELETE" }); toast("Delete request sent."); await loadJobs(); }
+  catch (error) { toast(error.message); }
+}
+checkBackend();
+</script>
+</body>
+</html>
